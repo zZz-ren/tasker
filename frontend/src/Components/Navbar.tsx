@@ -13,7 +13,7 @@ import { logout } from "../Store/slices/userSlice";
 import { baseUrl } from "../utils/api";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
-import { createTeam, teamData } from "../Store/slices/TaskSlice";
+import { createTeam, getTeamsData, teamData } from "../Store/slices/TaskSlice";
 
 const Navbar = () => {
   //in future to add routes from API
@@ -44,6 +44,7 @@ const Navbar = () => {
       const result = await uad(createTeam(newTeamData));
       if (createTeam.fulfilled.match(result)) {
         toast.success("Team created successfully!");
+        uad(getTeamsData)
         setNewTeamData(initalTeamData);
       } else if (createTeam.rejected.match(result)) {
         toast.error(result.payload || "Team creation failed"); // Uses rejectWithValue
@@ -337,7 +338,7 @@ const Navbar = () => {
                   onClick={() => {
                     var myModal =
                       (document.getElementById(
-                        "create_modal"
+                        "add_team_modal"
                       ) as HTMLDialogElement) || null;
                     if (myModal) {
                       myModal.close();

@@ -36,12 +36,14 @@ class teamController {
         throw new Error("No user present");
       }
 
-      const team = await Team.create({
+      let initTeam = await Team.create({
         name,
         description,
         creator: currUser.id,
         members: [...members, currUser.id],
       });
+
+      let team = await Team.findOne({ _id: initTeam._id }).populate("members");
       res.json({
         success: true,
         data: team,

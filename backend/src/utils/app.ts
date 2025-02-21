@@ -53,7 +53,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 // app.use("/",);
 app.use("/api", defaultRouter);
 app.use("*", (req: Request, res: Response) => {
-  res.status(404).json({ status: false, message: "Route not found" });
+  res.sendFile(path.join(FRONTEND_PATH,"index.html"))
 });
 
 const server = http.createServer(app);
